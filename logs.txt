@@ -1,0 +1,156 @@
+rut@rut-HP-ProBook-440-G5:~/ansible-playbooks/wordpress_lamp_ubuntu2204$ sudo ansible-playbook -u vagrant --private-key /home/rut/demovm/.vagrant/machines/default/libvirt/private_key playbook.yml 
+
+PLAY [all] ***********************************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************************
+[WARNING]: Platform linux on host 192.168.33.10 is using the discovered Python interpreter at /usr/bin/python3.11, but future installation of another
+Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html
+for more information.
+ok: [192.168.33.10]
+
+TASK [Install prerequisites] *****************************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Install LAMP Packages] *****************************************************************************************************************************
+ok: [192.168.33.10] => (item=apache2)
+changed: [192.168.33.10] => (item=default-mysql-server)
+ok: [192.168.33.10] => (item=python3-pymysql)
+ok: [192.168.33.10] => (item=php)
+ok: [192.168.33.10] => (item=php-mysql)
+ok: [192.168.33.10] => (item=libapache2-mod-php)
+
+TASK [Install PHP Extensions] ****************************************************************************************************************************
+changed: [192.168.33.10] => (item=php-curl)
+changed: [192.168.33.10] => (item=php-gd)
+changed: [192.168.33.10] => (item=php-mbstring)
+changed: [192.168.33.10] => (item=php-xml)
+changed: [192.168.33.10] => (item=php-xmlrpc)
+changed: [192.168.33.10] => (item=php-soap)
+changed: [192.168.33.10] => (item=php-intl)
+changed: [192.168.33.10] => (item=php-zip)
+
+TASK [Create document root] ******************************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Set up Apache VirtualHost] *************************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Enable rewrite module] *****************************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Enable new site] ***********************************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Disable default Apache site] ***********************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Set the root password] *****************************************************************************************************************************
+[WARNING]: Option column_case_sensitive is not provided. The default is now false, so the column's name will be uppercased. The default will be changed
+to true in community.mysql 4.0.0.
+changed: [192.168.33.10]
+
+TASK [Remove all anonymous user accounts] ****************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Remove the MySQL test database] ********************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Creates database for WordPress] ********************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Create MySQL user for WordPress] *******************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [UFW - Allow HTTP on port 80] ***********************************************************************************************************************
+fatal: [192.168.33.10]: FAILED! => {"changed": false, "msg": "Failed to find required executable \"ufw\" in paths: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"}
+
+PLAY RECAP ***********************************************************************************************************************************************
+192.168.33.10              : ok=14   changed=10   unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+rut@rut-HP-ProBook-440-G5:~/ansible-playbooks/wordpress_lamp_ubuntu2204$ vim playbook.yml 
+
+[Изменения не сохранены]
+
+Нажмите ENTER или введите команду для продолжения
+rut@rut-HP-ProBook-440-G5:~/ansible-playbooks/wordpress_lamp_ubuntu2204$ vim playbook.yml 
+rut@rut-HP-ProBook-440-G5:~/ansible-playbooks/wordpress_lamp_ubuntu2204$ sudo ansible-playbook -u vagrant --private-key /home/rut/demovm/.vagrant/machines/default/libvirt/private_key playbook.yml 
+
+PLAY [all] ***********************************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************************
+[WARNING]: Platform linux on host 192.168.33.10 is using the discovered Python interpreter at /usr/bin/python3.11, but future installation of another
+Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html
+for more information.
+ok: [192.168.33.10]
+
+TASK [Install prerequisites] *****************************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Install LAMP Packages] *****************************************************************************************************************************
+ok: [192.168.33.10] => (item=apache2)
+ok: [192.168.33.10] => (item=default-mysql-server)
+ok: [192.168.33.10] => (item=python3-pymysql)
+ok: [192.168.33.10] => (item=php)
+ok: [192.168.33.10] => (item=php-mysql)
+ok: [192.168.33.10] => (item=libapache2-mod-php)
+
+TASK [Install PHP Extensions] ****************************************************************************************************************************
+ok: [192.168.33.10] => (item=php-curl)
+ok: [192.168.33.10] => (item=php-gd)
+ok: [192.168.33.10] => (item=php-mbstring)
+ok: [192.168.33.10] => (item=php-xml)
+ok: [192.168.33.10] => (item=php-xmlrpc)
+ok: [192.168.33.10] => (item=php-soap)
+ok: [192.168.33.10] => (item=php-intl)
+ok: [192.168.33.10] => (item=php-zip)
+
+TASK [Create document root] ******************************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Set up Apache VirtualHost] *************************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Enable rewrite module] *****************************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Enable new site] ***********************************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Disable default Apache site] ***********************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Set the root password] *****************************************************************************************************************************
+[WARNING]: Option column_case_sensitive is not provided. The default is now false, so the column's name will be uppercased. The default will be changed
+to true in community.mysql 4.0.0.
+ok: [192.168.33.10]
+
+TASK [Remove all anonymous user accounts] ****************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Remove the MySQL test database] ********************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Creates database for WordPress] ********************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Create MySQL user for WordPress] *******************************************************************************************************************
+ok: [192.168.33.10]
+
+TASK [Download and unpack latest WordPress] **************************************************************************************************************
+changed: [192.168.33.10]
+
+TASK [Set ownership and permissions for Wordpress files and directories] *********************************************************************************
+changed: [192.168.33.10]
+
+TASK [Set up wp-config] **********************************************************************************************************************************
+changed: [192.168.33.10]
+
+RUNNING HANDLER [Reload Apache] **************************************************************************************************************************
+changed: [192.168.33.10]
+
+RUNNING HANDLER [Restart Apache] *************************************************************************************************************************
+changed: [192.168.33.10]
+
+PLAY RECAP ***********************************************************************************************************************************************
+192.168.33.10              : ok=19   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
