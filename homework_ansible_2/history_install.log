@@ -1,0 +1,557 @@
+rut@rut-HP-ProBook-440-G5:~/devOpsHW$ ls
+homeWorkAnsible1  homework_ansible_2
+rut@rut-HP-ProBook-440-G5:~/devOpsHW$ cd homework_ansible_2/
+rut@rut-HP-ProBook-440-G5:~/devOpsHW/homework_ansible_2$ ansible-playbook playbook.yml --ask-become-pass
+BECOME password: 
+
+PLAY [all] ***********************************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************************
+[WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.12, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for
+more information.
+ok: [localhost]
+
+TASK [Remove existing Drupal directory] ******************************************************************************************************************
+changed: [localhost]
+
+TASK [geerlingguy.php : Include OS-specific variables.] **************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Include distribution and version-specific vars.] *********************************************************************************
+ok: [localhost] => (item=/home/rut/.ansible/roles/geerlingguy.php/vars/Ubuntu-24.yml)
+
+TASK [geerlingguy.php : Set the default PHP version for Debian-based OSes.] ******************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : Define the name of the JSON extension package on Debian for PHP <8.] *************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : Add the JSON extension on Debian for PHP <8.] ************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : Define php_packages.] ************************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_webserver_daemon.] ****************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : Define php_conf_paths.] **********************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_extension_conf_paths.] ************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_apc_conf_filename.] ***************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_opcache_conf_filename (Ubuntu 16.04).] ********************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : Define php_opcache_conf_filename.] ***********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_fpm_conf_path.] *******************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : include_tasks] *******************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : include_tasks] *******************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.php/tasks/setup-Debian.yml for localhost
+
+TASK [geerlingguy.php : Update apt cache.] ***************************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Ensure PHP packages are installed.] **********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Delete APCu configuration file if this role will provide one.] *******************************************************************
+skipping: [localhost] => (item=/etc/php/8.3/fpm/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/apache2/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/cli/conf.d) 
+skipping: [localhost]
+
+TASK [geerlingguy.php : Delete OpCache configuration file if this role will provide one.] ****************************************************************
+skipping: [localhost] => (item=/etc/php/8.3/fpm/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/apache2/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/cli/conf.d) 
+skipping: [localhost]
+
+TASK [geerlingguy.php : include_tasks] *******************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : include_tasks] *******************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.php/tasks/configure.yml for localhost
+
+TASK [geerlingguy.php : Ensure configuration directories exist.] *****************************************************************************************
+ok: [localhost] => (item=/etc/php/8.3/fpm)
+ok: [localhost] => (item=/etc/php/8.3/apache2)
+ok: [localhost] => (item=/etc/php/8.3/cli)
+ok: [localhost] => (item=/etc/php/8.3/fpm/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/apache2/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/cli/conf.d)
+
+TASK [geerlingguy.php : Place PHP configuration file in place.] ******************************************************************************************
+ok: [localhost] => (item=/etc/php/8.3/fpm)
+ok: [localhost] => (item=/etc/php/8.3/apache2)
+ok: [localhost] => (item=/etc/php/8.3/cli)
+
+TASK [geerlingguy.php : include_tasks] *******************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.php/tasks/configure-apcu.yml for localhost
+
+TASK [geerlingguy.php : Check for existing APCu config files.] *******************************************************************************************
+ok: [localhost] => (item=/etc/php/8.3/fpm/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/apache2/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/cli/conf.d)
+
+TASK [geerlingguy.php : Remove any non-role-supplied APCu config files.] *********************************************************************************
+skipping: [localhost] => (item=[{'changed': False, 'msg': 'All paths examined', 'matched': 1, 'examined': 34, 'skipped_paths': {}, 'invocation': {'module_args': {'paths': ['/etc/php/8.3/fpm/conf.d'], 'contains': 'extension(\\s+)?=(\\s+)?apc[u]?\\.so', 'patterns': ['*'], 'read_whole_file': False, 'file_type': 'file', 'age_stamp': 'mtime', 'recurse': False, 'hidden': False, 'follow': False, 'get_checksum': False, 'use_regex': False, 'exact_mode': True, 'excludes': None, 'age': None, 'size': None, 'depth': None, 'mode': None, 'encoding': None}}, 'failed': False, 'item': '/etc/php/8.3/fpm/conf.d', 'ansible_loop_var': 'item'}, {'path': '/etc/php/8.3/fpm/conf.d/20-apcu.ini', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 66, 'inode': 394805, 'dev': 64512, 'nlink': 1, 'atime': 1763912452.0165546, 'mtime': 1763912448.718589, 'ctime': 1763912449.3685822, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}]) 
+skipping: [localhost] => (item=[{'changed': False, 'msg': 'All paths examined', 'matched': 1, 'examined': 2, 'skipped_paths': {}, 'invocation': {'module_args': {'paths': ['/etc/php/8.3/apache2/conf.d'], 'contains': 'extension(\\s+)?=(\\s+)?apc[u]?\\.so', 'patterns': ['*'], 'read_whole_file': False, 'file_type': 'file', 'age_stamp': 'mtime', 'recurse': False, 'hidden': False, 'follow': False, 'get_checksum': False, 'use_regex': False, 'exact_mode': True, 'excludes': None, 'age': None, 'size': None, 'depth': None, 'mode': None, 'encoding': None}}, 'failed': False, 'item': '/etc/php/8.3/apache2/conf.d', 'ansible_loop_var': 'item'}, {'path': '/etc/php/8.3/apache2/conf.d/20-apcu.ini', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 66, 'inode': 394806, 'dev': 64512, 'nlink': 1, 'atime': 1763912452.45555, 'mtime': 1763912450.0085757, 'ctime': 1763912450.444571, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}]) 
+skipping: [localhost] => (item=[{'changed': False, 'msg': 'All paths examined', 'matched': 1, 'examined': 34, 'skipped_paths': {}, 'invocation': {'module_args': {'paths': ['/etc/php/8.3/cli/conf.d'], 'contains': 'extension(\\s+)?=(\\s+)?apc[u]?\\.so', 'patterns': ['*'], 'read_whole_file': False, 'file_type': 'file', 'age_stamp': 'mtime', 'recurse': False, 'hidden': False, 'follow': False, 'get_checksum': False, 'use_regex': False, 'exact_mode': True, 'excludes': None, 'age': None, 'size': None, 'depth': None, 'mode': None, 'encoding': None}}, 'failed': False, 'item': '/etc/php/8.3/cli/conf.d', 'ansible_loop_var': 'item'}, {'path': '/etc/php/8.3/cli/conf.d/20-apcu.ini', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 66, 'inode': 394807, 'dev': 64512, 'nlink': 1, 'atime': 1763912452.8905454, 'mtime': 1763912450.9705656, 'ctime': 1763912451.4105608, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}]) 
+skipping: [localhost]
+
+TASK [geerlingguy.php : Ensure APCu config file is present.] *********************************************************************************************
+ok: [localhost] => (item=/etc/php/8.3/fpm/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/apache2/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/cli/conf.d)
+
+TASK [geerlingguy.php : Remove APCu config file if APC is disabled.] *************************************************************************************
+skipping: [localhost] => (item=/etc/php/8.3/fpm/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/apache2/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/cli/conf.d) 
+skipping: [localhost]
+
+TASK [geerlingguy.php : include_tasks] *******************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.php/tasks/configure-opcache.yml for localhost
+
+TASK [geerlingguy.php : Check for existing OpCache config files.] ****************************************************************************************
+ok: [localhost] => (item=/etc/php/8.3/fpm/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/apache2/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/cli/conf.d)
+
+TASK [geerlingguy.php : Remove any non-role-supplied OpCache config files.] ******************************************************************************
+skipping: [localhost] => (item=[{'changed': False, 'msg': 'All paths examined', 'matched': 1, 'examined': 34, 'skipped_paths': {}, 'invocation': {'module_args': {'paths': ['/etc/php/8.3/fpm/conf.d'], 'contains': 'zend_extension(\\s+)?=(\\s+)?opcache\\.so', 'patterns': ['*'], 'read_whole_file': False, 'file_type': 'file', 'age_stamp': 'mtime', 'recurse': False, 'hidden': False, 'follow': False, 'get_checksum': False, 'use_regex': False, 'exact_mode': True, 'excludes': None, 'age': None, 'size': None, 'depth': None, 'mode': None, 'encoding': None}}, 'failed': False, 'item': '/etc/php/8.3/fpm/conf.d', 'ansible_loop_var': 'item'}, {'path': '/etc/php/8.3/fpm/conf.d/10-opcache.ini', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 302, 'inode': 394808, 'dev': 64512, 'nlink': 1, 'atime': 1763912618.4349084, 'mtime': 1763912453.4555395, 'ctime': 1763912453.8935347, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}]) 
+skipping: [localhost] => (item=[{'changed': False, 'msg': 'All paths examined', 'matched': 1, 'examined': 2, 'skipped_paths': {}, 'invocation': {'module_args': {'paths': ['/etc/php/8.3/apache2/conf.d'], 'contains': 'zend_extension(\\s+)?=(\\s+)?opcache\\.so', 'patterns': ['*'], 'read_whole_file': False, 'file_type': 'file', 'age_stamp': 'mtime', 'recurse': False, 'hidden': False, 'follow': False, 'get_checksum': False, 'use_regex': False, 'exact_mode': True, 'excludes': None, 'age': None, 'size': None, 'depth': None, 'mode': None, 'encoding': None}}, 'failed': False, 'item': '/etc/php/8.3/apache2/conf.d', 'ansible_loop_var': 'item'}, {'path': '/etc/php/8.3/apache2/conf.d/10-opcache.ini', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 302, 'inode': 395550, 'dev': 64512, 'nlink': 1, 'atime': 1763912618.8569314, 'mtime': 1763912454.437529, 'ctime': 1763912454.8965242, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}]) 
+skipping: [localhost] => (item=[{'changed': False, 'msg': 'All paths examined', 'matched': 1, 'examined': 34, 'skipped_paths': {}, 'invocation': {'module_args': {'paths': ['/etc/php/8.3/cli/conf.d'], 'contains': 'zend_extension(\\s+)?=(\\s+)?opcache\\.so', 'patterns': ['*'], 'read_whole_file': False, 'file_type': 'file', 'age_stamp': 'mtime', 'recurse': False, 'hidden': False, 'follow': False, 'get_checksum': False, 'use_regex': False, 'exact_mode': True, 'excludes': None, 'age': None, 'size': None, 'depth': None, 'mode': None, 'encoding': None}}, 'failed': False, 'item': '/etc/php/8.3/cli/conf.d', 'ansible_loop_var': 'item'}, {'path': '/etc/php/8.3/cli/conf.d/10-opcache.ini', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 302, 'inode': 395556, 'dev': 64512, 'nlink': 1, 'atime': 1763912493.0870335, 'mtime': 1763912455.5225177, 'ctime': 1763912455.966513, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}]) 
+skipping: [localhost]
+
+TASK [geerlingguy.php : Ensure OpCache config file is present.] ******************************************************************************************
+ok: [localhost] => (item=/etc/php/8.3/fpm/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/apache2/conf.d)
+ok: [localhost] => (item=/etc/php/8.3/cli/conf.d)
+
+TASK [geerlingguy.php : Remove OpCache config file if OpCache is disabled.] ******************************************************************************
+skipping: [localhost] => (item=/etc/php/8.3/fpm/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/apache2/conf.d) 
+skipping: [localhost] => (item=/etc/php/8.3/cli/conf.d) 
+skipping: [localhost]
+
+TASK [geerlingguy.php : include_tasks] *******************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.php/tasks/configure-fpm.yml for localhost
+
+TASK [geerlingguy.php : Define php_fpm_daemon.] **********************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_fpm_pool_conf_path.] **************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_fpm_pool_user.] *******************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Define php_fpm_pool_group.] ******************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Stat php_fpm_pool_conf_path] *****************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php : Ensure the default pool directory exists.] ***************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php : Create fpm pools.] ***************************************************************************************************************
+ok: [localhost] => (item={'pool_name': 'www', 'pool_template': 'www.conf.j2', 'pool_listen': '127.0.0.1:9000', 'pool_listen_allowed_clients': '127.0.0.1', 'pool_pm': 'dynamic', 'pool_pm_max_children': 50, 'pool_pm_start_servers': 5, 'pool_pm_min_spare_servers': 5, 'pool_pm_max_spare_servers': 5, 'pool_pm_max_requests': 0, 'pool_pm_status_path': ''})
+
+TASK [geerlingguy.php : Ensure php-fpm is started and enabled at boot (if configured).] ******************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php-pgsql : Include OS-specific variables.] ********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php-pgsql : Define php_pgsql_package.] *************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.php-pgsql : Install PHP PostgreSQL dependencies (RedHat).] *****************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.php-pgsql : Install PHP PostgreSQL dependencies (Debian).] *****************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : include_tasks] ************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.postgresql/tasks/variables.yml for localhost
+
+TASK [geerlingguy.postgresql : Include OS-specific variables (Debian).] **********************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Include OS-specific variables (RedHat).] **********************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : Include OS-specific variables (Amazon).] **********************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : Include OS-specific variables (Fedora).] **********************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_packages.] **********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_version.] ***********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_daemon.] ************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_data_dir.] **********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_bin_path.] **********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_config_path.] *******************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_unix_socket_directories_mode.] **************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_log_dir.] ***********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_effective_log_dir, if postgresql_log_dir is absolute] ***************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : Define postgresql_effective_log_dir, if postgresql_log_dir is relative] ***************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : include_tasks] ************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : include_tasks] ************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.postgresql/tasks/setup-Debian.yml for localhost
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL Python libraries are installed.] ************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL packages are installed.] ********************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure all configured locales are present.] *******************************************************************************
+ok: [localhost] => (item=en_US.UTF-8)
+
+TASK [geerlingguy.postgresql : Force-restart PostgreSQL after new locales are generated.] ****************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : include_tasks] ************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : include_tasks] ************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.postgresql/tasks/initialize.yml for localhost
+
+TASK [geerlingguy.postgresql : Set PostgreSQL environment variables.] ************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL data directory exists.] *********************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Check if PostgreSQL database is initialized.] *****************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL database is initialized.] *******************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL log directory exists.] **********************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : include_tasks] ************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.postgresql/tasks/configure.yml for localhost
+
+TASK [geerlingguy.postgresql : Configure global settings.] ***********************************************************************************************
+ok: [localhost] => (item={'option': 'unix_socket_directories', 'value': '/var/run/postgresql'})
+ok: [localhost] => (item={'option': 'log_directory', 'value': 'log'})
+
+TASK [geerlingguy.postgresql : Configure host based authentication (if entries are configured).] *********************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL unix socket dirs exist.] ********************************************************************************
+ok: [localhost] => (item=/var/run/postgresql)
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL is started and enabled on boot.] ************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL users are present.] *************************************************************************************
+ok: [localhost] => (item=None)
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL databases are present.] *********************************************************************************
+ok: [localhost] => (item={'name': 'drupal'})
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL users are configured correctly.] ************************************************************************
+ok: [localhost] => (item=None)
+ok: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL users do not use deprecated privileges settings] ********************************************************
+skipping: [localhost] => (item=None) 
+skipping: [localhost]
+
+TASK [geerlingguy.postgresql : Ensure PostgreSQL users privileges are configured correctly.] *************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : Include OS-specific variables.] ************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : Define nginx_user.] ************************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : include_tasks] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : include_tasks] *****************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.nginx/tasks/setup-Ubuntu.yml for localhost
+
+TASK [geerlingguy.nginx : Ensure dirmngr is installed (gnupg dependency).] *******************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : Add PPA for Nginx (if configured).] ********************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : Ensure nginx will reinstall if the PPA was just added.] ************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : include_tasks] *****************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.nginx/tasks/setup-Debian.yml for localhost
+
+TASK [geerlingguy.nginx : Update apt cache.] *************************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : Ensure nginx is installed.] ****************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : include_tasks] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : include_tasks] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : include_tasks] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : include_tasks] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : Remove default nginx vhost config file (if configured).] ***********************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : Ensure nginx_vhost_path exists.] ***********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : Add managed vhost config files.] ***********************************************************************************************
+ok: [localhost] => (item={'listen': '80', 'server_name': 'localhost', 'root': '/var/www/drupal/web', 'index': 'index.php index.html index.htm', 'extra_parameters': 'location / {\n  try_files $uri $uri/ /index.php?$query_string;\n}\n\nlocation ~ \\.php$ {\n  fastcgi_index index.php;\n  include fastcgi_params;\n  fastcgi_pass 127.0.0.1:9000;\n\n  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;\n}\n'})
+
+TASK [geerlingguy.nginx : Remove managed vhost config files.] ********************************************************************************************
+skipping: [localhost] => (item={'listen': '80', 'server_name': 'localhost', 'root': '/var/www/drupal/web', 'index': 'index.php index.html index.htm', 'extra_parameters': 'location / {\n  try_files $uri $uri/ /index.php?$query_string;\n}\n\nlocation ~ \\.php$ {\n  fastcgi_index index.php;\n  include fastcgi_params;\n  fastcgi_pass 127.0.0.1:9000;\n\n  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;\n}\n'}) 
+skipping: [localhost]
+
+TASK [geerlingguy.nginx : Remove legacy vhosts.conf file.] ***********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : Copy nginx configuration in place.] ********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.nginx : Ensure nginx service is running as configured.] ********************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.git : Ensure git is installed (RedHat).] ***********************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Update apt cache (Debian).] ******************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.git : Ensure git is installed (Debian).] ***********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.git : Include OS-specific variables (RedHat).] *****************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Include OS-specific variables (Fedora).] *****************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Include OS-specific variables (Debian).] *****************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Define git_install_from_source_dependencies.] ************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Ensure git's dependencies are installed.] ****************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Get installed version.] **********************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Force git install if the version numbers do not match.] **************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Download git.] *******************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Expand git archive.] *************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.git : Build git.] **********************************************************************************************************************
+skipping: [localhost] => (item=all) 
+skipping: [localhost] => (item=install) 
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Check if requested version parameters are valid] ****************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Set php_executable variable to a default if not defined.] *******************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Check if Composer is installed.] ********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.composer : Get Composer installer signature.] ******************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Download Composer installer.] ***********************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Run Composer installer.] ****************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Move Composer into globally-accessible location.] ***************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Update Composer to latest version (if configured).] *************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : Ensure composer directory exists.] ******************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.composer : Add GitHub OAuth token for Composer (if configured).] ***********************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : include_tasks] **************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.composer : include_tasks] **************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drush : include_tasks] *****************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.drush/tasks/install-drush-launcher.yml for localhost
+
+TASK [geerlingguy.drush : Check current state.] **********************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drush : Perform cleanup of old symlink.] ***********************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drush : Ensure Drush path directory exists.] *******************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drush : Install Drush.] ****************************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drush : Ensure Drush is executable.] ***************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drush : include_tasks] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drush : include_tasks] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : Add backwards-compatibility shims.] *******************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.drupal/tasks/backwards-compatibility.yml for localhost
+
+TASK [geerlingguy.drupal : build_makefile shim] **********************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : build_composer shim] **********************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : build_composer_project shim] **************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : install_site shim] ************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : drupalvm_database shim] *******************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : Check if Drupal is already set up.] *******************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : Define drush_path if it's not already defined.] *******************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : Define drupal_site_exists.] ***************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : include_tasks] ****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : Define drupal_deploy_updated] *************************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : include_tasks] ****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : include_tasks] ****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : include_tasks] ****************************************************************************************************************
+skipping: [localhost]
+
+TASK [geerlingguy.drupal : include_tasks] ****************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.drupal/tasks/build-composer-project.yml for localhost
+
+TASK [geerlingguy.drupal : Delete old /tmp/composer-project] *********************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : Generate Drupal project with composer package in /tmp/composer-project (this may take a while).] ******************************
+changed: [localhost]
+
+TASK [geerlingguy.drupal : Ensure drupal_composer_install_dir directory has proper permissions.] *********************************************************
+changed: [localhost]
+
+TASK [geerlingguy.drupal : Move Drupal project files to drupal_composer_install_dir (this may take a while).] ********************************************
+changed: [localhost]
+
+TASK [geerlingguy.drupal : Install dependencies with composer require (this may take a while).] **********************************************************
+changed: [localhost] => (item=drush/drush:^13)
+
+TASK [geerlingguy.drupal : Check if a project specific Drush binary exists.] *****************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : Use project specific Drush if available.] *************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : include_tasks] ****************************************************************************************************************
+included: /home/rut/.ansible/roles/geerlingguy.drupal/tasks/install-site.yml for localhost
+
+TASK [geerlingguy.drupal : Check if site is already installed.] ******************************************************************************************
+ok: [localhost]
+
+TASK [geerlingguy.drupal : Configure database correctly if using PostgreSQL.] ****************************************************************************
+changed: [localhost]
+
+TASK [geerlingguy.drupal : Install Drupal with drush.] ***************************************************************************************************
+changed: [localhost]
+
+TASK [geerlingguy.drupal : Install configured modules with drush.] ***************************************************************************************
+skipping: [localhost]
+
+RUNNING HANDLER [geerlingguy.drupal : clear opcache] *****************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP ***********************************************************************************************************************************************
+localhost                  : ok=101  changed=8    unreachable=0    failed=0    skipped=67   rescued=0    ignored=0   
