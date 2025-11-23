@@ -1,0 +1,85 @@
+---
+#Drupal settings
+drupal_domain: "localhost"
+drupal_composer_install_dir: "/var/www/drupal"
+drupal_core_path: "{{ drupal_composer_install_dir }}/web"
+drupal_install_site: true
+drupal_build_composer_project: true
+drupal_db_user: "drupal"
+drupal_db_password: "drupal"
+drupal_db_name: "drupal"
+drupal_version: "11"
+drush_launcher_version: "0.10.2"
+drush_version: "13"
+drupal_composer_project_package: "drupal/recommended-project:^{{ drupal_version }}"
+drupal_composer_project_options: "--prefer-dist --no-interaction"
+drupal_composer_dependencies:
+  - "drush/drush:^{{ drush_version }}"
+
+drupal_db_backend: 'pgsql'
+drupal_db_host: '127.0.0.1'
+drupal_db_port: '5432'
+drupal_db_url: "pgsql://{{ drupal_db_user }}:{{ drupal_db_password }}@{{ drupal_db_host }}:{{ drupal_db_port }}/{{ drupal_db_name }}"
+
+#PHP settings
+php_version: '8.3'
+php_default_version_debian: "8.3"
+php_webserver_daemon: "nginx"
+php_enable_php_fpm: true
+php_install_recommends: false
+php_packages_extra:
+  - 'zip'
+  - 'unzip'
+  - 'php8.3-pgsql'
+  - 'php8.3-fpm'
+php_extensions:
+  - php8.3-fpm
+  - php8.3-pgsql
+php_executable: "/usr/bin/php8.3"
+
+
+
+
+
+#Nginx settings
+nginx_vhosts:
+  - listen: "80"
+    server_name: "{{ drupal_domain }}"
+    root: "{{ drupal_core_path }}"
+    index: "index.php index.html index.htm"
+    extra_parameters: |
+      location / {
+        try_files $uri $uri/ /index.php?$query_string;
+      }
+
+      location ~ \.php$ {
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_pass 127.0.0.1:9000;
+
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+      }
+nginx_remove_default_vhost: true
+
+
+# PostgreSQL settings
+postgresql_databases:
+  - name: "{{ drupal_db_name }}"
+
+postgresql_users:
+  - name: "{{ drupal_db_user }}"
+    password: "{{ drupal_db_password }}"
+    encrypted: no 
+    role_attr_flags: "CREATEDB,CREATEROLE,SUPERUSER"
+
+postgresql_hba_entries:
+  - { type: local, database: all, user: postgres, auth_method: peer }
+  - { type: local, database: all, user: all, auth_method: peer }
+  - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
+  - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
+
+postgresql_listen_addresses: ['localhost', '127.0.0.1']
+
+composer_environment:
+  COMPOSER_ALLOW_SUPERUSER: 1
+  COMPOSER_PROCESS_TIMEOUT: 600
