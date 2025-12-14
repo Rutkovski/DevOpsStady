@@ -1,0 +1,67 @@
+---
+# tasks file for mysql
+
+- block:
+  - name: Install MySQL Packages
+    apt: name={{ item }} update_cache=yes state=latest
+    loop: [ 'mysql-server', 'python3-pymysql' ]
+    tags: [ mysql ]
+
+  - name: Ensure MySQL service is started
+    systemd:
+      name: mysql
+      state: started
+      enabled: yes
+    tags: [ mysql ]
+
+  - name: Wait for MySQL to be ready
+    wait_for:
+      path: /var/run/mysqld/mysqld.sock
+      state: present
+      timeout: 60
+    tags: [ mysql ]
+
+  # MySQL Configuration
+  - name: Set the root password
+    mysql_user:
+      name: root
+      password: "{{ lamp_mysql_root_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    tags: [ mysql, mysql-root ]
+
+  - name: Remove all anonymous user accounts
+    mysql_user:
+      name: ''
+      host_all: yes
+      state: absent
+      login_user: root
+      login_password: "{{ lamp_mysql_root_password }}"
+    tags: [ mysql ]
+
+  - name: Remove the MySQL test database
+    mysql_db:
+      name: test
+      state: absent
+      login_user: root
+      login_password: "{{ lamp_mysql_root_password }}"
+    tags: [ mysql ]
+
+  - name: Creates database for WordPress
+    mysql_db:
+      name: "{{ lamp_mysql_db }}"
+      state: present
+      login_user: root
+      login_password: "{{ lamp_mysql_root_password }}"
+    tags: [ mysql ]
+
+  - name: Create MySQL user for WordPress
+    mysql_user:
+      name: "{{ lamp_mysql_user }}"
+      password: "{{ lamp_mysql_password }}"
+      priv: "{{ lamp_mysql_db }}.*:ALL"
+      state: present
+      login_user: root
+      login_password: "{{ lamp_mysql_root_password }}"
+    tags: [ mysql ]
+
+  become: true

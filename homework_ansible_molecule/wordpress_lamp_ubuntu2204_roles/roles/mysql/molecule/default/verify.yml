@@ -1,0 +1,57 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: true
+  vars_files:
+    - ../../defaults/main.yml  # Подключите defaults роли
+
+  vars:
+    lamp_http_host: "your_domain"
+  tasks:
+    - name: Check if MySQL service is running and enabled
+      systemd:
+        name: mysql
+        state: started
+        enabled: yes
+      register: mysql_service_status
+
+    - name: Verify MySQL service is active
+      assert:
+        that:
+          - mysql_service_status.changed == false
+          - mysql_service_status.state == 'started'
+
+
+    - name: Test MySQL connection with root user
+      mysql_query:
+        login_user: root
+        login_password: "{{ lamp_mysql_root_password }}"
+        query: "SELECT 1 as connection_test"
+      register: mysql_connection_test
+      ignore_errors: yes
+
+
+    - name: Verify MySQL root connection works
+      assert:
+        that:
+          - mysql_connection_test is not failed
+          - mysql_connection_test is defined
+
+
+    - name: Check if WordPress db Wordpress exists and second user connection works
+      shell: |
+        mysql -u {{ lamp_mysql_user }} -p"{{ lamp_mysql_password }}" -e "SHOW DATABASES;" | grep -q "{{ lamp_mysql_db }}"
+      register: db_check
+      changed_when: false
+      failed_when: false
+      become: true
+
+    - name: Verify WordPress database exists
+      assert:
+        that:
+          - db_check.rc == 0
+
+    - name: Final success message
+      debug:
+        msg: "✅ MySQL verification PASSED: Service is running, connection works, database exists"
+      become: true

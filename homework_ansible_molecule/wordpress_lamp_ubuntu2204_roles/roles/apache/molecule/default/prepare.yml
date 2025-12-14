@@ -1,0 +1,9 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+
+  pre_tasks:
+    - name: Install prerequisites
+      apt: name=ufw update_cache=yes state=latest force_apt_get=yes
+      become: true

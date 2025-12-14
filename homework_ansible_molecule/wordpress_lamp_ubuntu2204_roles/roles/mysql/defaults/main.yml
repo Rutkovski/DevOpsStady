@@ -1,0 +1,7 @@
+---
+# defaults file for mysql
+#MySQL Settings
+lamp_mysql_root_password: "mysql_root_password"
+lamp_mysql_db: "wordpress"
+lamp_mysql_user: "sammy"
+lamp_mysql_password: "password"

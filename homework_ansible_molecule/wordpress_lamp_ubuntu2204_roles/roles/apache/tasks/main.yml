@@ -1,0 +1,53 @@
+---
+# tasks file for apache
+
+- block:
+  - name: Install Apache package
+    apt:
+      name: apache2
+      update_cache: yes
+      state: latest
+    tags: [ apache ]
+
+  - name: Create document root
+    file:
+      path: "/var/www/{{ lamp_http_host }}"
+      state: directory
+      owner: "www-data"
+      group: "www-data"
+      mode: '0755'
+    tags: [ apache ]
+
+  - name: Set up Apache VirtualHost
+    template:
+      src: "templates/apache.conf.j2"
+      dest: "/etc/apache2/sites-available/{{ lamp_http_conf }}"
+    notify: Reload Apache
+    tags: [ apache ]
+
+  - name: Enable rewrite module
+    apache2_module:
+      state: present
+      name: rewrite
+    notify: Reload Apache
+    tags: [ apache ]
+
+  - name: Enable new site
+    shell: /usr/sbin/a2ensite {{ lamp_http_conf }}
+    notify: Reload Apache
+    tags: [ apache, molecule-idempotence-notest ]
+
+  - name: Disable default Apache site
+    shell: /usr/sbin/a2dissite 000-default.conf
+    notify: Restart Apache
+    tags: [ apache, molecule-idempotence-notest ]
+
+  # UFW Configuration
+  - name: "UFW - Allow HTTP on port {{ lamp_http_port }}"
+    ufw:
+      rule: allow
+      port: "{{ lamp_http_port }}"
+      proto: tcp
+    tags: [ system, molecule-idempotence-notest ]
+
+  become: true

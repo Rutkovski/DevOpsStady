@@ -1,0 +1,16 @@
+---
+#System Settings
+lamp_php_modules: [ 'php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip' ]
+
+#MySQL Settings
+lamp_mysql_root_password: "mysql_root_password"
+lamp_mysql_db: "wordpress"
+lamp_mysql_user: "sammy"
+lamp_mysql_password: "password"
+
+#HTTP Settings
+lamp_http_host: "your_domain"
+lamp_http_conf: "your_domain.conf"
+
+#WordPress Settings
+lamp_wordpress_version: "6.8.1"

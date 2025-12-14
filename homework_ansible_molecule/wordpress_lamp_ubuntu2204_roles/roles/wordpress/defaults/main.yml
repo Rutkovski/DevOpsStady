@@ -1,0 +1,4 @@
+---
+# defaults file for wordpress
+lamp_wordpress_http_host: "your_domain"
+lamp_wordpress_version: "6.8.1"

@@ -1,0 +1,15 @@
+---
+# tasks file for php
+
+- block:
+  - name: Install PHP Packages
+    apt: name={{ item }} update_cache=yes state=latest
+    loop: [ 'php', 'php-mysql', 'libapache2-mod-php' ]
+    tags: [ php ]
+
+  - name: Install PHP Extensions
+    apt: name={{ item }} update_cache=yes state=latest
+    loop: "{{ lamp_php_modules }}"
+    tags: [ php ]
+
+  become: true

@@ -1,0 +1,6 @@
+---
+# defaults file for apache
+#HTTP Settings
+lamp_http_host: "your_domain"
+lamp_http_conf: "your_domain.conf"
+lamp_http_port: "80"
