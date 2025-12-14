@@ -1,0 +1,82 @@
+rut@rut-HP-ProBook-440-G5:~/devOpsHW/homeWorkAnsible_last$ ansible-playbook playbook.yml
+
+PLAY [all] *************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************
+[WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.11, but future installation of another Python interpreter could change the meaning
+of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.
+ok: [localhost]
+
+TASK [apache : Install Apache Packages] ********************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [apache : Create document root] ***********************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [apache : Set up Apache VirtualHost] ******************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [apache : Enable rewrite module] **********************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [apache : Enable new site] ****************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [apache : Disable default Apache site] ****************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [mysql : Install MySQL Packages] **********************************************************************************************************************************************************
+ok: [localhost] => (item=mariadb-server)
+ok: [localhost] => (item=python3-pymysql)
+
+TASK [mysql : Set the root password] ***********************************************************************************************************************************************************
+[WARNING]: Option column_case_sensitive is not provided. The default is now false, so the column's name will be uppercased. The default will be changed to true in community.mysql 4.0.0.
+ok: [localhost]
+
+TASK [mysql : Remove all anonymous user accounts] **********************************************************************************************************************************************
+ok: [localhost]
+
+TASK [mysql : Remove the MySQL test database] **************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [mysql : Creates database for WordPress] **************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [mysql : Create MySQL user for WordPress] *************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [php : Install PHP Packages] **************************************************************************************************************************************************************
+ok: [localhost] => (item=php)
+ok: [localhost] => (item=php-mysql)
+ok: [localhost] => (item=libapache2-mod-php)
+
+TASK [php : Install PHP Extensions] ************************************************************************************************************************************************************
+ok: [localhost] => (item=php-curl)
+ok: [localhost] => (item=php-gd)
+ok: [localhost] => (item=php-mbstring)
+ok: [localhost] => (item=php-xml)
+ok: [localhost] => (item=php-xmlrpc)
+ok: [localhost] => (item=php-soap)
+ok: [localhost] => (item=php-intl)
+ok: [localhost] => (item=php-zip)
+
+TASK [wordpress : Download and unpack latest WordPress] ****************************************************************************************************************************************
+skipping: [localhost]
+
+TASK [wordpress : Set ownership and permissions for Wordpress files and directories] ***********************************************************************************************************
+changed: [localhost]
+
+TASK [wordpress : Set up wp-config] ************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Install prerequisites] *******************************************************************************************************************************************************************
+ok: [localhost]
+
+RUNNING HANDLER [apache : Reload Apache] *******************************************************************************************************************************************************
+changed: [localhost]
+
+RUNNING HANDLER [apache : Restart Apache] ******************************************************************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************************************************************************************
+localhost                  : ok=20   changed=6    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
