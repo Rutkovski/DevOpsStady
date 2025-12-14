@@ -1,0 +1,3 @@
+---
+# defaults file for wordpress
+wordpress_version: "6.8.1"

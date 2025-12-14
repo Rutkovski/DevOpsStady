@@ -1,0 +1,22 @@
+#########################################################
+# Wordpress on Ubuntu 22.04 LAMP
+#########################################################
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/default.yml
+
+
+  tasks:
+    - name: Install prerequisites
+      apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
+      become: true
+      tags: [ system ]
+
+  
+  roles:
+    - apache
+    - mysql
+    - php
+    - wordpress

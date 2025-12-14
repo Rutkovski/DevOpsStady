@@ -1,0 +1,6 @@
+---
+# defaults file for apache
+#HTTP Settings
+http_host: "your_domain"
+http_conf: "your_domain.conf"
+http_port: "80"
